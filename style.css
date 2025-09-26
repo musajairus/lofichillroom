@@ -1,0 +1,120 @@
+:root {
+  --bg-dark: #000000;
+  --bg-light: #f6f6f6;
+  --text-dark: #ffffff;
+  --text-light: #f29f0f;
+  --accent: #ffd600;
+  --glass: #ffffff0a;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter,Arial,system-ui,-apple-system}
+body.dark-mode{background:var(--bg-dark);color:var(--text-dark)}
+body.light-mode{background:var(--bg-light);color:var(--text-light)}
+
+#bg-video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;filter:brightness(.45) saturate(.9)}
+.bg-glow{position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at center,var(--accent),transparent 55%);filter:blur(60px);opacity:.85;pointer-events:none}
+
+.layout{display:flex;min-height:100vh}
+.sidebar{
+  width:320px;padding:20px;display:flex;flex-direction:column;gap:16px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+  backdrop-filter: blur(8px);
+}
+.brand{display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:800;font-size:28px;letter-spacing:2px}
+.theme-btn{padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:transparent;color:inherit;cursor:pointer}
+
+.playlist{display:flex;flex-direction:column;gap:10px;overflow:auto;padding-right:6px}
+.song{display:flex;gap:12px;align-items:center;padding:10px;border-radius:12px;background:var(--glass);cursor:pointer;transition:transform .18s, box-shadow .18s}
+.song:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,0.45)}
+.song img{width:56px;height:56px;border-radius:8px;object-fit:cover}
+.song .meta{display:flex;flex-direction:column}
+.song .meta .title{font-weight:600}
+.song .meta .artist{font-size:13px;color:rgba(255,255,255,0.7)}
+
+.main-area{flex:1;padding:28px}
+.header .title{font-size:28px}
+.header .subtitle{color:rgba(255,255,255,0.6);margin-top:6px}
+
+/* Song display */
+.song-display {
+  display:flex;
+  align-items:center;
+  gap:28px;
+  margin-top:40px;
+  flex-wrap:wrap;
+}
+.song-display img {
+  width:300px;height:300px;border-radius:14px;object-fit:cover;
+}
+.display-text {
+  flex:1;
+  min-width:250px;
+}
+.display-text h2{margin:0;font-size:26px}
+.display-text h3{margin:4px 0 14px 0;font-weight:500;color:rgba(255,255,255,0.7)}
+.display-text p{font-size:15px;line-height:1.6;color:rgba(255,255,255,0.9)}
+
+/* Now playing bar */
+#now-playing.np {
+  position:fixed;
+  left:61%;
+  transform:translateX(-50%);
+  bottom:20px;
+  width:92%;
+  max-width:1000px;
+  border-radius:20px;
+  background:rgba(20,20,20,0.85);
+  backdrop-filter:blur(12px);
+  box-shadow:0 10px 40px rgba(0,0,0,0.6);
+  padding:14px 20px;
+  z-index:20;
+}
+.np-inner{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.np-left{display:flex;align-items:center;gap:12px}
+.np-left img{width:60px;height:60px;border-radius:10px;object-fit:cover}
+.np-meta{display:flex;flex-direction:column}
+#np-title{font-weight:700}
+#np-artist{font-size:13px;color:rgba(255,255,255,0.85)}
+
+.controls{display:flex;align-items:center;gap:19px}
+.icon-btn{width:44px;height:44px;border-radius:50%;border:3px solid rgba(255,255,255,0.15);background:transparent;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.icon-btn svg{width:20px;height:20px;fill:var(--text-dark)}
+.time-row{display:flex;align-items:center;gap:12px}
+#progress{width:650px;appearance:none;height:6px;border-radius:6px;background:rgba(255,255,255,0.14);outline:none}
+#progress::-webkit-slider-thumb{appearance:none;width:14px;height:14px;border-radius:50%;background:var(--accent);box-shadow:0 2px 6px rgba(0,0,0,0.4);cursor:pointer}
+#progress::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--accent)}
+
+@media(max-width:900px){
+  .layout{flex-direction:column}
+  .sidebar{width:100%}
+  .song-display{flex-direction:column;align-items:center;text-align:center}
+  .song-display img{width:240px;height:240px}
+  .display-text{max-width:90%}
+  .np-inner{flex-direction:column;gap:12px;text-align:center}
+}
+  @media screen {
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    }
+    font font-family: ubuntu, sans-serif;
+      .header .title {
+        font- font-family: ubuntu, sans-serif;
+        font -weight: 700;
+        font size : 28px;
+
+      
+      }
+  }
+    .header .subtitle {
+      font-family : ubuntu, sans-serif;
+      font-weight : 400;
+      font-size : 15px;
+      color :rgba(:radial-gradient, green, blue, alpha)
+    }
+    polyline {
+      stroke : radial-gradient(circle, red, yelloe, green, blue);
+      
+    }
