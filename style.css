@@ -33,9 +33,8 @@ body.light-mode { background: var(--bg-light); color: var(--text-light); }
 .logo { font-weight:800; font-size:28px; letter-spacing:2px; }
 .theme-btn { padding:8px 10px; border-radius:10px; border:1px solid rgba(255,255,255,0.08); background:transparent; color:inherit; cursor:pointer; }
 
-/* playlist: make scrollable and grow to fill sidebar space */
+/* playlist */
 .playlist { display:flex; flex-direction:column; gap:10px; overflow-y:auto; padding-right:6px; flex: 1 1 auto; }
-/* optional: visually limit playlist height on very tall screens */
 .playlist { max-height: calc(100vh - 140px); }
 
 /* song items */
@@ -59,14 +58,11 @@ body.light-mode { background: var(--bg-light); color: var(--text-light); }
 .display-text h3 { margin:4px 0 14px 0; font-weight:500; color: rgba(255,255,255,0.7); }
 .display-text p { font-size:15px; line-height:1.6; color: rgba(255,255,255,0.9); }
 
-/* now-playing bar
-   - anchored on the right side (clears the sidebar)
-   - does NOT center the whole bar on desktop
-*/
+/* now-playing bar */
 #now-playing.np {
   position: fixed;
-  left: calc(var(--sidebar-w) + 20px); /* clears sidebar */
-  right: 16px;                          /* stretches to the right edge */
+  left: calc(var(--sidebar-w) + 20px);
+  right: 16px;
   bottom: 20px;
   border-radius: 18px;
   background: rgba(20,20,20,0.85);
@@ -76,41 +72,35 @@ body.light-mode { background: var(--bg-light); color: var(--text-light); }
   z-index: 40;
 }
 
-/* inner layout: left meta, centered controls, right time/progress */
+/* inner layout */
 .np-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
 }
-
-/* left meta (no grow) */
 .np-left { display:flex; align-items:center; gap:12px; flex: 0 0 auto; }
 .np-left img { width:56px; height:56px; border-radius:10px; object-fit:cover; }
 .np-meta { display:flex; flex-direction:column; }
 #np-title { font-weight:700; }
 #np-artist { font-size:13px; color: rgba(255,255,255,0.85); }
 
-/* CENTERED controls only (this is the fix) */
 .controls {
-  flex: 1 1 auto;                 /* allow center area to grow and center its content */
+  flex: 1 1 auto;
   display: flex;
   align-items: center;
-  justify-content: center;        /* <- centers the play/pause/next buttons inside the bar */
+  justify-content: center;
   gap: 12px;
 }
 
-/* right progress area: don't grow too large */
 .time-row {
   display:flex;
   align-items:center;
   gap:12px;
   flex: 0 0 auto;
 }
-
-/* responsive & safe slider sizing (no long fixed width) */
 #progress {
-  width: clamp(120px, 34vw, 420px); /* adapts to viewport */
+  width: clamp(120px, 34vw, 420px);
   max-width: 100%;
   appearance: none;
   height: 6px;
@@ -134,7 +124,7 @@ body.light-mode { background: var(--bg-light); color: var(--text-light); }
   background: var(--accent);
 }
 
-/* icon button styles */
+/* buttons */
 .icon-btn {
   width:44px;
   height:44px;
@@ -148,25 +138,24 @@ body.light-mode { background: var(--bg-light); color: var(--text-light); }
 }
 .icon-btn svg { width:18px; height:18px; fill: var(--text-dark); }
 
-/* responsive behavior */
+/* responsive */
 @media (max-width: 900px) {
   .layout { flex-direction: column; }
   .sidebar { width: 100%; }
-  .playlist { max-height: calc(40vh); } /* make playlist take reasonable vertical space */
+  .playlist { max-height: 40vh; }
   .song-display { flex-direction: column; align-items: center; text-align: center; }
   .song-display img { width: 220px; height: 220px; }
 
-  /* now-playing becomes centered and full width on small screens */
+  /* mobile player behaves like YT Music: sticky footer */
   #now-playing.np {
-    left: 50%;
-    right: 16px;
-    transform: translateX(-50%);
-    width: calc(100% - 32px);
-    bottom: 14px;
-    padding: 12px;
+    position: sticky;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0 auto;
+    width: 100%;
+    border-radius: 14px 14px 0 0;
   }
-
-  /* stack the inner items neatly */
   .np-inner { flex-direction: column; gap: 10px; text-align: center; }
   .controls { order: 2; width: 100%; justify-content: center; }
   .time-row { order: 3; width: 100%; justify-content: center; }
