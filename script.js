@@ -20,14 +20,17 @@ const durationEl = document.getElementById("duration");
 const bgGlow = document.querySelector(".bg-glow");
 const nowPlaying = document.getElementById("now-playing");
 
-const songDisplay = document.getElementById("song-display");
+const songDisplayCover = document.getElementById("display-cover");
+const songDisplayTitle = document.getElementById("display-title");
+const songDisplayArtist = document.getElementById("display-artist");
+const songDisplayStory = document.getElementById("display-story");
 
 let songs = [];
 let currentIndex = 0;
 let isPlaying = false;
 const colorThief = new ColorThief();
 
-// --- Load playlist (db.json) ---
+// load playlist (db.json) — keep your original data source
 fetch("db.json")
   .then(r => r.json())
   .then(data => {
@@ -37,7 +40,6 @@ fetch("db.json")
   })
   .catch(err => console.error("Failed to load db.json", err));
 
-// Render left playlist
 function renderPlaylist(){
   playlistEl.innerHTML = "";
   songs.forEach((s, i) => {
@@ -55,35 +57,29 @@ function renderPlaylist(){
   });
 }
 
-// Load a song (index)
 function loadSong(index, autoPlay = false){
   if (!songs.length) return;
   currentIndex = ((index % songs.length) + songs.length) % songs.length;
   const s = songs[currentIndex];
 
-  // update audio and UI
   audio.src = s.src;
   npCover.src = s.cover;
   npTitle.textContent = s.title;
   npArtist.textContent = s.artist;
 
-  // Update main display
-  songDisplay.innerHTML = `
-    <img src="${s.cover}" alt="${s.title}">
-    <div class="story">
-      <h2>${s.title}</h2>
-      <h3>${s.artist}</h3>
-      <p>${s.story || ""}</p>
-    </div>
-  `;
+  // update big display
+  songDisplayCover.src = s.cover;
+  songDisplayTitle.textContent = s.title;
+  songDisplayArtist.textContent = s.artist;
+  songDisplayStory.textContent = s.story || "";
 
-  // extract dominant color for accent
+  // color extraction
   const img = new Image();
   img.crossOrigin = "Anonymous";
   img.src = s.cover;
   img.onload = () => {
     try {
-      const c = colorThief.getColor(img); // [r,g,b]
+      const c = colorThief.getColor(img);
       const rgb = `rgb(${c[0]}, ${c[1]}, ${c[2]})`;
       document.documentElement.style.setProperty("--accent", rgb);
       bgGlow.style.background = `radial-gradient(circle at center, ${rgb}, transparent 55%)`;
@@ -92,13 +88,9 @@ function loadSong(index, autoPlay = false){
     }
   };
 
-  // play if requested
-  if (autoPlay) {
-    playSong();
-  }
+  if (autoPlay) playSong();
 }
 
-// Play / Pause
 function playSong(){
   audio.play().catch(()=>{});
   isPlaying = true;
@@ -115,7 +107,6 @@ playBtn.addEventListener("click", ()=> isPlaying ? pauseSong() : playSong());
 nextBtn.addEventListener("click", ()=> loadSong(currentIndex + 1, true));
 prevBtn.addEventListener("click", ()=> loadSong(currentIndex - 1, true));
 
-// Progress updates
 audio.addEventListener("loadedmetadata", () => {
   durationEl.textContent = formatTime(audio.duration);
 });
@@ -130,19 +121,16 @@ audio.addEventListener("timeupdate", () => {
   progress.style.background = `linear-gradient(90deg, ${accent} ${pct}%, rgba(255,255,255,0.12) ${pct}%)`;
 });
 
-// Seek
 progress.addEventListener("input", (e) => {
   const pct = Number(e.target.value);
   const dur = audio.duration || 1;
   audio.currentTime = (pct / 100) * dur;
 });
 
-// Auto next
 audio.addEventListener("ended", () => {
   loadSong(currentIndex + 1, true);
 });
 
-// Format time
 function formatTime(sec){
   if (!isFinite(sec)) return "0:00";
   const m = Math.floor(sec / 60);
@@ -150,7 +138,6 @@ function formatTime(sec){
   return `${m}:${s}`;
 }
 
-// Theme toggle
 themeToggle.addEventListener("click", () => {
   if (document.body.classList.contains("dark-mode")) {
     document.body.classList.remove("dark-mode");
@@ -163,7 +150,6 @@ themeToggle.addEventListener("click", () => {
   }
 });
 
-// On load
 (function initThemeButton(){
   themeToggle.textContent = document.body.classList.contains("dark-mode") ? "Light" : "Dark";
 })();

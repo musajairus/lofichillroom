@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>lofi chillroom — LC</title>
 
-  <!-- ColorThief -->
+  <!-- ColorThief (for color extraction) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
 
   <link rel="stylesheet" href="style.css">
@@ -20,10 +20,13 @@
   <div class="layout">
     <aside class="sidebar">
       <div class="brand">
-        <div class="logo">LøFi</div>
+        <div class="logo">LC</div>
         <button id="theme-toggle" class="theme-btn">Light</button>
       </div>
-      <nav id="playlist" class="playlist"></nav>
+
+      <nav id="playlist" class="playlist">
+        <!-- playlist items injected here -->
+      </nav>
     </aside>
 
     <main class="main-area">
@@ -32,7 +35,6 @@
         <p class="subtitle">Relax • Study • Chill</p>
       </header>
 
-      <!-- song details area -->
       <section id="song-display" class="song-display">
         <img id="display-cover" src="" alt="cover" />
         <div class="display-text">
@@ -55,30 +57,32 @@
         </div>
       </div>
 
-      <div class="np-center">
-        <div class="controls">
-          <button id="prev" class="icon-btn" aria-label="Previous">
-            <svg viewBox="0 0 24 24"><path d="M6 4v16h2V4H6zm3.5 8l9 6V6l-9 6z"/></svg>
-          </button>
-          <button id="play" class="icon-btn play-btn" aria-label="Play/Pause">
-            <svg id="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            <svg id="pause-icon" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-          </button>
-          <button id="next" class="icon-btn" aria-label="Next">
-            <svg viewBox="0 0 24 24"><path d="M16 4v16h2V4h-2zm-1.5 8L6 18V6l8.5 6z"/></svg>
-          </button>
-        </div>
+      <div class="controls"> 
+        <!-- these are centered inside the bar -->
+        <button id="prev" class="icon-btn" aria-label="Previous">
+          <svg viewBox="0 0 24 24"><path d="M6 4v16h2V4H6zm3.5 8l9 6V6l-9 6z"/></svg>
+        </button>
 
-        <div class="time-row">
-          <span id="current-time">0:00</span>
-          <input id="progress" type="range" min="0" max="100" value="0" />
-          <span id="duration">0:00</span>
-        </div>
+        <button id="play" class="icon-btn play-btn" aria-label="Play/Pause">
+          <svg id="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <svg id="pause-icon" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
+
+        <button id="next" class="icon-btn" aria-label="Next">
+          <svg viewBox="0 0 24 24"><path d="M16 4v16h2V4h-2zm-1.5 8L6 18V6l8.5 6z"/></svg>
+        </button>
+      </div>
+
+      <div class="time-row">
+        <span id="current-time">0:00</span>
+        <input id="progress" type="range" min="0" max="100" value="0" />
+        <span id="duration">0:00</span>
       </div>
     </div>
   </div>
 
   <audio id="audio"></audio>
+
   <script src="script.js"></script>
 </body>
 </html>
